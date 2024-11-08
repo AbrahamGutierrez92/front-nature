@@ -8,14 +8,18 @@ const allProductos = () => {
 
   const tokenLocalStorage = localStorage.getItem ('token');
   useEffect(() => {
-    fetch("http://localhost:3000/api/productos",{
-     headers: {Authorization: tokenLocalStorage}
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setProduct(data);
-      });
-  }, []);
+    todoProducto();
+  }, profuct);
+
+  const todoProducto = async() => {
+    await fetch("http://localhost:3000/api/productos",{
+      headers: {Authorization: tokenLocalStorage}
+     })
+       .then((res) => res.json())
+       .then((data) => {
+         setProduct(data);
+       });
+  }
 
   const deleteProduct = async(id) => {
     await fetch(`http://localhost:3000/api/productos/${id}`, {
