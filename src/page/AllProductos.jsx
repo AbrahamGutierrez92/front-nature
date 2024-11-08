@@ -5,8 +5,12 @@ import { useNavigate } from "react-router-dom";
 const allProductos = () => {
   const [profuct, setProduct] = useState([]);
   const navigate = useNavigate();
+
+  const tokenLocalStorage = localStorage.getItem ('token');
   useEffect(() => {
-    fetch("http://localhost:3000/api/productos")
+    fetch("http://localhost:3000/api/productos",{
+     headers: {Authorization: tokenLocalStorage}
+    })
       .then((res) => res.json())
       .then((data) => {
         setProduct(data);

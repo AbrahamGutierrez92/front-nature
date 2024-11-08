@@ -18,6 +18,7 @@ const Login = () => {
   const handleInput = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+
   const loginUser = async (e) => {
     e.preventDefault();
 
@@ -26,20 +27,25 @@ const Login = () => {
       contrasena: user.contrasena,
     };
 
-    await fetch("http://localhost:3000/api/usuario/login", {
-      method: "POST",
-      body: JSON.stringify(dato),
-      headers: {
-        "Content-Type": "application/json; chartset=UTF-8",
-      },
-    })
-      .then((res) => res.json())
-      .then((datas) => {
-        dispatch(fetchUsers(datas));
-      });
-
-    navigate("/home/dashboard");
-    setUser(initialState);
+    try{
+      await fetch("http://localhost:3000/api/usuario/login", {
+        method: "POST",
+        body: JSON.stringify(dato),
+        headers: {
+          "Content-Type": "application/json; chartset=UTF-8",
+        },
+      })
+        .then((res) => res.json())
+        .then((datas) => {
+          dispatch(fetchUsers(datas));
+          localStorage.setItem ('token', datas.token) 
+        });
+  
+      navigate("/home/dashboard");
+      setUser(initialState);
+    }catch(e){
+      console.log(e)
+    }
   };
 
   return (

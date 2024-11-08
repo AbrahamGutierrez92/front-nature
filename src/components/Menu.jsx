@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Menu = () => {
   const navigate = useNavigate();
+
   const usersLogout = async () =>{
     await fetch("http://localhost:3000/api/usuario/logout",{
       method: "POST",
@@ -20,6 +21,8 @@ const Menu = () => {
       navigate("/");
       console.log(data);
     })
+
+    localStorage.removeItem('token');
   }
   
 
